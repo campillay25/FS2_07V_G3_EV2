@@ -79,7 +79,13 @@ function HomeView(){
               <p className="text-secondary flex-grow-1">
                 Descubre los mejores ajustes gráficos para maximizar el rendimiento de tu equipo ASUS ROG Strix y ganar más partidas.
               </p>
-              <Link to="/productos" className="btn btn-outline-light fw-bold px-4 mt-3 mx-auto">Ver más</Link>
+             <a 
+                href="https://www.youtube.com/watch?v=1V7lRzrYNpk" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-outline-light fw-bold px-4 mt-3 mx-auto text-decoration-none"
+                >Ver Más
+              </a>
             </div>
           </Col>
           <Col md={6}>
@@ -88,7 +94,13 @@ function HomeView(){
               <p className="text-secondary flex-grow-1">
                 Mantente al día con los últimos lanzamientos, análisis y novedades del mundo de los videojuegos en Vandal.
               </p>
-              <Link to="/productos" className="btn btn-outline-light fw-bold px-4 mt-3 mx-auto">Ver Noticias</Link>
+              <a 
+                href="https://vandal.elespanol.com/noticias/videojuegos" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-outline-light fw-bold px-4 mt-3 mx-auto text-decoration-none"
+                >Ver Noticias
+              </a>
             </div>
           </Col>
         </Row>

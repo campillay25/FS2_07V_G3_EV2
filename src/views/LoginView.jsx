@@ -29,7 +29,7 @@ function LoginView(){
     <Container className="my-5">
       <Row className="justify-content-center">
         <Col md={6} lg={5}>
-          <div className="p-4 p-md-5 rounded bg-dark border border-secondary shadow-lg">
+          <div className="p-4 p-md-5 rounded bg-dark border border-secondary">
             <h2 className="text-center fw-bold mb-4" style={{ color: '#39FF14' }}>Iniciar Sesión</h2>
             
             {error && <Alert variant="danger" className="py-2 small">Por favor, completa todos los campos.</Alert>}
