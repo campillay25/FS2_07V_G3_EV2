@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
-function ProductsView() {
+function ProductsView({ agregarAlCarrito }) {
   const juegosDeMesa = [
     { id: 1, nombre: 'Catan', codigo: 'JM001', descripcion: 'Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores', precio: 29990, imagen: '/img/catan.jpg' },
     { id: 2, nombre: 'Carcassonne', codigo: 'JM002', descripcion: 'Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne', precio: 24990, imagen: '/img/carcassonne.jpg' },
@@ -39,7 +39,7 @@ function ProductsView() {
       <Row className="g-4 mb-5">
         {juegosDeMesa.map((producto) => (
           <Col xs={12} lg={4} key={producto.id}>
-            <ProductCard producto={producto} />
+            <ProductCard producto={producto} agregarAlCarrito={agregarAlCarrito}/>
           </Col>
         ))}
       </Row>
@@ -48,7 +48,7 @@ function ProductsView() {
       <Row className="g-4 mb-5">
         {accesorios.map((producto) => (
           <Col xs={12} lg={4} key={producto.id}>
-            <ProductCard producto={producto} />
+            <ProductCard producto={producto} agregarAlCarrito={agregarAlCarrito}/>
           </Col>
         ))}
       </Row>
@@ -57,7 +57,7 @@ function ProductsView() {
       <Row className="g-4 mb-5">
         {consolas.map((producto) => (
           <Col xs={12} lg={4} key={producto.id}>
-            <ProductCard producto={producto} />
+            <ProductCard producto={producto} agregarAlCarrito={agregarAlCarrito}/>
           </Col>
         ))}
       </Row>
@@ -66,7 +66,7 @@ function ProductsView() {
       <Row className="g-4 mb-5">
         {mobiliario.map((producto) => (
           <Col xs={12} lg={4} key={producto.id}>
-            <ProductCard producto={producto} />
+            <ProductCard producto={producto} agregarAlCarrito={agregarAlCarrito}/>
           </Col>
         ))}
       </Row>
@@ -75,7 +75,7 @@ function ProductsView() {
       <Row className="g-4 mb-5">
         {vestuario.map((producto) => (
           <Col xs={12} lg={4} key={producto.id}>
-            <ProductCard producto={producto} />
+            <ProductCard producto={producto} agregarAlCarrito={agregarAlCarrito}/>
           </Col>
         ))}
       </Row>
