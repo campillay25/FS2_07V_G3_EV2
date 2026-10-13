@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import AppNavbar from './components/AppNavbar' 
+import AppFooter from './components/AppFooter'
 import HomeView from './views/HomeView'
 import ProductsView from './views/ProductsView'
 import LoginView from './views/LoginView'
@@ -9,16 +10,20 @@ import ContactView from './views/ContactView'
 
 function App() {
   return (
-    <div className="bg-black text-white min-vh-100">
+    <div className="bg-black text-white min-vh-100 d-flex flex-column">
       <AppNavbar /> 
-      <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/productos" element={<ProductsView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/carrito" element={<CartView />} /> 
-        <Route path="/registro" element={<RegisterView />} /> 
-        <Route path="/contacto" element={<ContactView />} />
-      </Routes>
+      <main className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<HomeView />} />
+          <Route path="/productos" element={<ProductsView />} />
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/carrito" element={<CartView />} /> 
+          <Route path="/registro" element={<RegisterView />} /> 
+          <Route path="/contacto" element={<ContactView />} />
+        </Routes>
+      </main>
+
+      <AppFooter />
     </div>
   )
 }

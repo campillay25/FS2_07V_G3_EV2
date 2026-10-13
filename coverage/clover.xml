@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1791909634751" clover="3.2.0">
+  <project timestamp="1791909634752" name="All files">
+    <metrics statements="15" coveredstatements="15" conditionals="7" coveredconditionals="7" methods="4" coveredmethods="4" elements="26" coveredelements="26" complexity="0" loc="15" ncloc="15" packages="1" files="1" classes="1"/>
+    <file name="ContactView.jsx" path="C:\Users\LENOVO\Downloads\FS2_07V_G3_EV\FS2_07V_G3_EV2\src\views\ContactView.jsx">
+      <metrics statements="15" coveredstatements="15" conditionals="7" coveredconditionals="7" methods="4" coveredmethods="4"/>
+      <line num="5" count="85" type="stmt"/>
+      <line num="15" count="85" type="stmt"/>
+      <line num="17" count="85" type="stmt"/>
+      <line num="18" count="77" type="stmt"/>
+      <line num="21" count="85" type="stmt"/>
+      <line num="22" count="2" type="stmt"/>
+      <line num="24" count="2" type="cond" truecount="5" falsecount="0"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="34" count="85" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="39" count="85" type="stmt"/>
+    </file>
+  </project>
+</coverage>
