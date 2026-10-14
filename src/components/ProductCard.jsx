@@ -1,8 +1,28 @@
-import { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
 
-function ProductCard({ producto, agregarAlCarrito}) {
-  const [cantidad, setCantidad] = useState(0)
+function ProductCard({ producto }) {
+  const agregarAlCarrito = () => {
+
+    const carritoActual = JSON.parse(localStorage.getItem('carritoLevelUp')) || []
+
+    const index = carritoActual.findIndex(item => item.id === producto.id)
+
+    if (index>=0) {
+      carritoActual[index].cantidad += 1
+    } else {
+      carritoActual.push({
+        id: producto.id,
+        nombre: producto.nombre,  
+        precio: producto.precio,
+        imagen: producto.imagen,
+        cantidad: 1
+      })
+    }
+
+    localStorage.setItem('carritoLevelUp', JSON.stringify(carritoActual))
+   
+    alert(`${producto.nombre} agregado al carrito`)
+  }
 
   return (
     <Card className="h-100 bg-dark text-white">
@@ -20,15 +40,11 @@ function ProductCard({ producto, agregarAlCarrito}) {
         <Card.Text className="fs-5 fw-bold mb-3" style={{ color: '#39FF14' }}>
           ${producto.precio.toLocaleString('es-CL')} CLP
         </Card.Text>
-        <Card.Text className="small text-muted mb-3">Cantidad en carro: {cantidad}</Card.Text>
         
         <div className="d-flex gap-2 mt-auto">
-          <Button variant="outline-light" className="w-100 fw-bold" onClick={() =>{
-            agregarAlCarrito(producto);
-          if (typeof setCantidad === 'function') {
-                setCantidad(cantidad + 1);
-              }}}>
-            Agregar
+          <Button variant="outline-light" className="w-100 fw-bold"
+           onClick={agregarAlCarrito}>
+            Agregar al Carrito
           </Button>
         </div>
          </Card.Body>
