@@ -4,14 +4,25 @@ import { Link } from 'react-router-dom'
 function CartView({ carrito, setCarrito }) {
 
 const incrementarCantidad = (id) => {
-  const nuevosProductos = carrito.map(item => 
-    item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+  setCarrito((prevCarrito) =>
+    prevCarrito.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            cantidad: Number(item.cantidad) + 1
+          }
+        : item
+    )
   )
-  setCarrito(nuevosProductos)
 }
 
-  const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0)
+// Calcula el total usando los valores actuales del carrito.
+const total = carrito.reduce((acumulador, item) => {
+  const precio = Number(item.precio) || 0
+  const cantidad = Number(item.cantidad) || 0
 
+  return acumulador + precio * cantidad
+}, 0)
   return (
     <Container className="my-5">
       <h2 className="fw-bold mb-4" style={{ color: '#39FF14' }}>Carrito de Compras</h2>
@@ -62,7 +73,10 @@ const incrementarCantidad = (id) => {
                       
                       
                       <td className="text-end fw-bold text-white">
-                        ${(item.precio * item.cantidad).toLocaleString('es-CL')}
+                         ${(
+                            (Number(item.precio) || 0) *
+                            (Number(item.cantidad) || 0)
+                            ).toLocaleString('es-CL')}
                       </td>
                     </tr>
                   ))}

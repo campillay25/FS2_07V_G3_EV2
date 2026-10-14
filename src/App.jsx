@@ -13,16 +13,18 @@ function App() {
   const [carrito, setCarrito] = useState([])
 
   const agregarAlCarrito = (producto) => {
-    const productoExistente = carrito.find((item) => item.id === producto.id)
+    setCarrito((prevCarrito) => {
+    const productoExistente = prevCarrito.find((item) => item.id === producto.id)
     
     if (productoExistente) {
-      setCarrito(carrito.map((item) => 
+      return prevCarrito.map((item) => 
         item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
-      ))
+      )
     } else {
-      setCarrito([...carrito, { ...producto, cantidad: 1 }])
+     return [...prevCarrito, { ...producto, cantidad: 1 }]
     }
-  }
+  })
+}
   return (
     <div className="bg-black text-white min-vh-100 d-flex flex-column">
       <AppNavbar /> 
