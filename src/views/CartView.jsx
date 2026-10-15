@@ -52,8 +52,8 @@ const [carrito, setCarrito] = useState([])
       {carrito.length === 0 ? (
         <div className="text-center py-5 bg-dark rounded border border-secondary text-white">
           <h4 className="text-secondary mb-3">Tu carrito está vacío</h4>
-          <p className="text-muted">¡Explora nuestro catálogo y añade equipo gamer a tu setup!</p>
-          <Button as={Link} to="/productos" variant="primary" className="fw-bold mt-2">
+          <p className="text">¡Explora nuestro catálogo y añade equipo gamer a tu setup!</p>
+          <Button as={Link} to="/productos" variant="outline-light" className="fw-bold mt-2">
             Ver Catálogo
           </Button>
         </div>
@@ -88,9 +88,9 @@ const [carrito, setCarrito] = useState([])
                       <td style={{ color: '#39FF14' }}>${item.precio.toLocaleString('es-CL')}</td>
                       <td className="text-center">
                         <div className="d-flex justify-content-center align-items-center gap-2">
-                          <Button variant="outline-secondary" size="sm" onClick={() => decrementar(item.id)}>-</Button>
+                          <Button variant="outline-light" size="sm" onClick={() => decrementar(item.id)}>-</Button>
                           <span className="fw-bold px-2 text-white">{item.cantidad}</span>
-                          <Button variant="outline-primary" size="sm" onClick={() => incrementar(item.id)}>+</Button>
+                          <Button variant="outline-light" size="sm" onClick={() => incrementar(item.id)}>+</Button>
                         </div>
                       </td>
                       <td className="text-end fw-bold text-white">

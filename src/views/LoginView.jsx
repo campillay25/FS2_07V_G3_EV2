@@ -39,8 +39,7 @@ function LoginView(){
               <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label className="text-light">Correo Electrónico</Form.Label>
                 <Form.Control 
-                  type="email" 
-                  placeholder="tucorreo@ejemplo.com" 
+                  type="email"
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-secondary text-white border-0"
@@ -50,8 +49,7 @@ function LoginView(){
               <Form.Group className="mb-4" controlId="formPassword">
                 <Form.Label className="text-light">Contraseña</Form.Label>
                 <Form.Control 
-                  type="password" 
-                  placeholder="Contraseña" 
+                  type="password"            
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)}
                   className="bg-secondary text-white border-0"

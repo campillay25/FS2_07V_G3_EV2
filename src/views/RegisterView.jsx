@@ -40,7 +40,6 @@ function RegisterView() {
                 <Form.Label className="text-light">Nombre de Usuario</Form.Label>
                 <Form.Control 
                   type="text" 
-                  placeholder="Tu GamerTag o Nombre" 
                   value={nombre} 
                   onChange={(e) => setNombre(e.target.value)}
                   className="bg-secondary text-white border-0"
@@ -48,10 +47,9 @@ function RegisterView() {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formEmailReg">
-                <Form.Label className="text-light">Correo Electrnico</Form.Label>
+                <Form.Label className="text-light">Correo Electronico</Form.Label>
                 <Form.Control 
                   type="email" 
-                  placeholder="tucorreo@ejemplo.com" 
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-secondary text-white border-0"
@@ -62,7 +60,6 @@ function RegisterView() {
                 <Form.Label className="text-light">Contraseña</Form.Label>
                 <Form.Control 
                   type="password" 
-                  placeholder="Crea una contraseña segura" 
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)}
                   className="bg-secondary text-white border-0"
