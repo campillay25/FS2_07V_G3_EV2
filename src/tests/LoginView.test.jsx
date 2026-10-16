@@ -16,7 +16,7 @@ describe('LoginView Component', () => {
     
     expect(screen.getByLabelText(/correo electrónico/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/contraseña/i)).toBeInTheDocument()
-    const botonLogin = screen.getByRole('button', { name: /iniciar sesión/i })
+    const botonLogin = screen.getByRole('button', { name: /ingresar/i })
     expect(botonLogin).toBeInTheDocument()
   })
 
