@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 
 function LoginView(){
@@ -9,6 +9,8 @@ function LoginView(){
     const [error,setError] = useState(false)
     const [mensajeExito, setMensajeExito] = useState('')
 
+    const navigate = useNavigate()
+      
     const handleSubmit = (e) => {
     e.preventDefault()
     
@@ -18,12 +20,20 @@ function LoginView(){
       setMensajeExito('')
       return
     }
-
     setError(false)
+
+     if (email === 'admin@duocuc.cl' && password === 'admin123') {
+      sessionStorage.setItem('usuarioSesion', JSON.stringify({ email, rol: 'admin' }))
+      navigate('/admin/productos') 
+    } else {
+    
+      sessionStorage.setItem('usuarioSesion', JSON.stringify({ email, rol: 'cliente' }))
     setMensajeExito('¡Inicio de sesión exitoso! Bienvenido a Level-Up Gamer.')
     setEmail('')
     setPassword('')
+    navigate('/')
   }
+}
 
   return (
     <Container className="my-5">

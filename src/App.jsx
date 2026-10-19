@@ -7,6 +7,9 @@ import LoginView from './views/LoginView'
 import CartView from './views/CartView'
 import RegisterView from './views/RegisterView'
 import ContactView from './views/ContactView'
+import AdminLayout from './views/admin/AdminLayout'
+import AdminProductosView from './views/admin/AdminProductosView'
+import AdminAgregarProductoView from './views/admin/AdminAgregarProductoView'
 
 function App() {
   
@@ -21,6 +24,11 @@ function App() {
           <Route path="/carrito" element={<CartView />} /> 
           <Route path="/registro" element={<RegisterView />} /> 
           <Route path="/contacto" element={<ContactView />} />
+          <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminProductosView />} />
+          <Route path="productos" element={<AdminProductosView />} />
+          <Route path="productos/nuevo" element={<AdminAgregarProductoView />} />
+          </Route>
         </Routes>
       </main>
 

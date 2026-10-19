@@ -1,6 +1,17 @@
+import { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ProductCard from '../components/ProductCard'
+
 function ProductsView() {
+
+  const [productosAdmin, setProductosAdmin] = useState([])
+
+  useEffect(() => {
+   
+    const guardados = JSON.parse(localStorage.getItem('productos')) || []
+    setProductosAdmin(guardados)
+  }, [])
+
   const juegosDeMesa = [
     { id: 1, nombre: 'Catan', codigo: 'JM001', descripcion: 'Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores', precio: 29990, imagen: '/img/catan.jpg' },
     { id: 2, nombre: 'Carcassonne', codigo: 'JM002', descripcion: 'Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne', precio: 24990, imagen: '/img/carcassonne.jpg' },
@@ -79,7 +90,18 @@ function ProductsView() {
           </Col>
         ))}
       </Row>
-      
+      {productosAdmin.length > 0 && (
+        <>
+          <h3 id="cat-nuevos" className="mt-5 mb-3 pt-4" style={{ color: '#39FF14' }}>Nuevos Ingresos</h3>
+          <Row className="g-4 mb-5">
+            {productosAdmin.map((producto) => (
+              <Col xs={12} lg={4} key={producto.id}>
+                <ProductCard producto={producto} />
+              </Col>
+            ))}
+          </Row>
+        </>
+      )}
     </Container>
   )
 }
