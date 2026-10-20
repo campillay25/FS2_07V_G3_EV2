@@ -31,7 +31,9 @@ function LoginView(){
     setMensajeExito('¡Inicio de sesión exitoso! Bienvenido a Level-Up Gamer.')
     setEmail('')
     setPassword('')
-    navigate('/')
+     setTimeout(() => {
+      navigate('/');
+    }, 1000); 
   }
 }
 
