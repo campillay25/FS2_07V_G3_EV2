@@ -1,7 +1,11 @@
 import { Nav } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 function AdminSidebar() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
   return (
     <div className="bg-dark p-3 rounded border border-secondary h-100">
       <h4 style={{ color: '#39FF14' }} className="mb-4">Panel Admin</h4>
@@ -15,9 +19,9 @@ function AdminSidebar() {
         <hr className="border-secondary" />
         <Nav.Link 
           onClick={() => {
-            sessionStorage.removeItem('usuarioSesion')
-            window.location.href = '/login'
-          }} 
+            logout()
+            navigate('/login')
+          }}
           className="text-danger"
         >
           Cerrar Sesión

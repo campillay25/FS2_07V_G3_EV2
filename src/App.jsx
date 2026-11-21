@@ -28,6 +28,7 @@ function App() {
           <Route index element={<AdminProductosView />} />
           <Route path="productos" element={<AdminProductosView />} />
           <Route path="productos/nuevo" element={<AdminAgregarProductoView />} />
+          <Route path="productos/editar/:id" element={<AdminAgregarProductoView />} />
           </Route>
         </Routes>
       </main>
