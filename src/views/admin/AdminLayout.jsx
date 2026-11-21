@@ -1,16 +1,21 @@
 import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { Link, Outlet } from 'react-router-dom'
 import AdminSidebar from '../../components/AdminSidebar'
+import { useAuth } from '../../context/AuthContext'
 
 function AdminLayout() {
-  const usuario = JSON.parse(sessionStorage.getItem('usuarioSesion') || 'null')
+  const { session, isAdmin } = useAuth()
 
-  if (!usuario || usuario.rol !== 'admin') {
+  if (!session || !isAdmin) {
     return (
       <Container className="py-5 text-center">
         <Alert variant="danger" className="bg-dark text-white border-danger">
           <h4 className="text-danger">Acceso Denegado</h4>
-          <p>Debes iniciar sesión como administrador para ver esta página.</p>
+          <p>
+            {session
+              ? `Tu cuenta (${session.email}) tiene rol ${session.rol}. Solo los administradores pueden gestionar el inventario.`
+              : 'Debes iniciar sesión como administrador para ver esta página.'}
+          </p>
           <Link to="/login" className="btn btn-outline-light">Ir al Login</Link>
         </Alert>
       </Container>
