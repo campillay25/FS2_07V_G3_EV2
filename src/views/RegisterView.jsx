@@ -1,28 +1,49 @@
 import { useState } from 'react'
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { authService } from '../services/authService'
+import { getErrorMessage } from '../utils/getErrorMessage'
 
 function RegisterView() {
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
   const [mensajeExito, setMensajeExito] = useState('')
+  const [cargando, setCargando] = useState(false)
+const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (nombre.trim() === '' || email.trim() === '' || password.trim() === '') {
-      setError(true)
+      setError('Por favor, completa todos los campos.')
       setMensajeExito('')
       return
     }
 
-    setError(false)
-    setMensajeExito('Registro exitoso! Ya forma parte de la comunidad Level-Up Gamer.')
-    setNombre('')
-    setEmail('')
-    setPassword('')
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.')
+      setMensajeExito('')
+      return
+    }
+
+    setError('')
+    setMensajeExito('')
+    setCargando(true)
+
+    try {
+      await authService.register(nombre.trim(), email.trim(), password)
+      setMensajeExito('¡Registro exitoso! Redirigiendo al inicio de sesión...')
+      setNombre('')
+      setEmail('')
+      setPassword('')
+      setTimeout(() => navigate('/login'), 1200)
+    } catch (err) {
+      setError(getErrorMessage(err))
+    } finally {
+      setCargando(false)
+    }
   }
 
   return (
@@ -66,8 +87,8 @@ function RegisterView() {
                 />
               </Form.Group>
 
-              <Button type="submit" className="w-100 fw-bold py-2 btn-primary mb-3">
-                Crear Cuenta
+              <Button type="submit" disabled={cargando} className="w-100 fw-bold py-2 btn-primary mb-3">
+                {cargando ? 'Creando cuenta...' : 'Crear Cuenta'}
               </Button>
             </Form>
 
