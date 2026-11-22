@@ -56,7 +56,7 @@ function LoginView(){
           <div className="p-4 p-md-5 rounded bg-dark border border-secondary">
             <h2 className="text-center fw-bold mb-4" style={{ color: '#39FF14' }}>Iniciar Sesión</h2>
             
-            {error && <Alert variant="danger" className="py-2 small">Por favor, completa todos los campos.</Alert>}
+            {error && <Alert variant="danger" className="py-2 small">{error}</Alert>}
             {mensajeExito && <Alert variant="success" className="py-2 small">{mensajeExito}</Alert>}
 
             <Form onSubmit={handleSubmit}>
