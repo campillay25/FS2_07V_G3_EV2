@@ -1,6 +1,9 @@
 export function getErrorMessage(error) {
   return (
     error.response?.data?.message ||
+    (error.response?.status === 409
+      ? 'Este correo ya está asociado a una cuenta.'
+      : null) ||
     (error.response?.status === 403
       ? 'Acceso denegado: Se requieren permisos de Administrador.'
       : null) ||
