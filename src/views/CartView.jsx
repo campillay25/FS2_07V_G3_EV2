@@ -1,10 +1,41 @@
 import { useState, useEffect } from 'react'
-import { Container, Row, Col, Table, Button, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Container, Row, Col, Table, Button, Card,Alert, Badge } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { compraService } from '../services/compraService'
+import { getErrorMessage } from '../utils/getErrorMessage'
 
 function CartView() {
 
 const [carrito, setCarrito] = useState([])
+const [comprasRealizadas, setComprasRealizadas] = useState([])
+const [cargandoCompras, setCargandoCompras] = useState(false)
+const [procesandoPago, setProcesandoPago] = useState(false)
+const [alerta, setAlerta] = useState({ tipo: '', texto: '' })
+
+const auth = useAuth()
+const session = auth?.session
+const navigate = useNavigate()
+
+const cargarMisCompras = async () => {
+    if (!session) {
+      setComprasRealizadas([])
+      return
+    }
+    setCargandoCompras(true)
+    try {
+      const data = await compraService.misCompras()
+      setComprasRealizadas(data)
+    } catch {
+    
+    } finally {
+      setCargandoCompras(false)
+    }
+  }
+
+  useEffect(() => {
+    cargarMisCompras()
+  }, [session])
 
   const cargarCarrito = () => {
     const carritoGuardado = JSON.parse(localStorage.getItem('carritoLevelUp')) || []
@@ -45,9 +76,59 @@ const [carrito, setCarrito] = useState([])
 
   const totalPagar = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0)
   
+  const handlePagar = async () => {
+    if (!session) {
+      setAlerta({
+        tipo: 'warning',
+        texto: 'Debes iniciar sesión con tu cuenta para registrar y finalizar la compra.'
+      })
+      return
+    }
+
+    setProcesandoPago(true)
+    setAlerta({ tipo: '', texto: '' })
+
+    const itemsPayload = carrito.map(item => ({
+      productoId: item.id,
+      nombreProducto: item.nombre,
+      precioUnitario: item.precio,
+      cantidad: item.cantidad,
+      subtotal: item.precio * item.cantidad
+    }))
+
+    try {
+      await compraService.registrarCompra(itemsPayload, totalPagar)
+      localStorage.removeItem('carritoLevelUp')
+      setCarrito([])
+      window.dispatchEvent(new Event('storage'))
+      setAlerta({
+        tipo: 'success',
+        texto: '¡Compra registrada con éxito! Puedes revisar el comprobante en tu resumen abajo.'
+      })
+      await cargarMisCompras()
+    } catch (err) {
+      setAlerta({ tipo: 'danger', texto: getErrorMessage(err) })
+    } finally {
+      setProcesandoPago(false)
+    }
+  }
   return (
     <Container className="my-5">
       <h2 className="text-center mb-4" style={{ color: '#39FF14' }}>Carrito de Compras</h2>
+
+      {alerta.texto && (
+        <Alert variant={alerta.tipo} className="text-center fw-bold">
+          {alerta.texto}
+          {alerta.tipo === 'warning' && (
+            <div className="mt-2">
+              <Button size="sm" variant="dark" onClick={() => navigate('/login')}>
+                Ir a Iniciar Sesión
+              </Button>
+            </div>
+          )}
+        </Alert>
+      )}
+
 
       {carrito.length === 0 ? (
         <div className="text-center py-5 bg-dark rounded border border-secondary text-white">
@@ -119,17 +200,13 @@ const [carrito, setCarrito] = useState([])
                   <span>Total:</span>
                   <span style={{ color: '#39FF14' }}>${totalPagar.toLocaleString('es-CL')} CLP</span>
                 </div>
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
+                  disabled={procesandoPago}
                   className="w-100 fw-bold py-2 mb-2"
-                  onClick={() => {
-                    alert('¡Compra realizada con éxito! Gracias por preferir Level-Up Gamer.')
-                    localStorage.removeItem('carritoLevelUp')
-                    setCarrito([])
-                    window.dispatchEvent(new Event('storage'))
-                  }}
+                  onClick={handlePagar}
                 >
-                  Proceder al Pago
+                  {procesandoPago ? 'Procesando compra...' : 'Proceder al Pago'}
                 </Button>
                 <Button as={Link} to="/productos" variant="outline-light" className="w-100 fw-bold py-2">
                   Seguir Comprando
@@ -138,6 +215,53 @@ const [carrito, setCarrito] = useState([])
             </Card>
           </Col>
         </Row>
+      )}
+      {session && (
+        <section className="mt-5">
+          <h3 className="mb-3" style={{ color: '#39FF14' }}>Mis Compras Realizadas</h3>
+          {cargandoCompras ? (
+            <p className="text-secondary">Cargando resumen de compras...</p>
+          ) : comprasRealizadas.length === 0 ? (
+            <div className="p-4 bg-dark rounded border border-secondary text-secondary">
+              Aún no has realizado compras con la cuenta <strong>{session.email}</strong>.
+            </div>
+          ) : (
+            <div className="table-responsive bg-dark p-3 rounded border border-secondary">
+              <Table variant="dark" hover bordered className="align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Orden #</th>
+                    <th>Fecha</th>
+                    <th>Detalle de Productos</th>
+                    <th className="text-end">Total Pagado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comprasRealizadas.map((compra) => (
+                    <tr key={compra.id}>
+                      <td className="fw-bold">#{compra.id}</td>
+                      <td className="small text-secondary">
+                        {new Date(compra.fecha).toLocaleString('es-CL')}
+                      </td>
+                      <td>
+                        <div className="d-flex flex-wrap gap-2">
+                          {compra.items?.map((item, idx) => (
+                            <Badge key={idx} bg="secondary" className="fw-normal">
+                              {item.nombreProducto} x{item.cantidad} (${item.subtotal.toLocaleString('es-CL')})
+                            </Badge>
+                          ))}
+                        </div>
+                      </td>
+                      <td className="text-end fw-bold" style={{ color: '#39FF14' }}>
+                        ${compra.total.toLocaleString('es-CL')} CLP
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          )}
+        </section>
       )}
     </Container>
   )
