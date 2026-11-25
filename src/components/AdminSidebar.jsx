@@ -11,10 +11,13 @@ function AdminSidebar() {
       <h4 style={{ color: '#39FF14' }} className="mb-4">Panel Admin</h4>
       <Nav className="flex-column gap-2">
         <Nav.Link as={NavLink} to="/admin/productos" className="text-white">
-           Listar productos
+          Listar productos
         </Nav.Link>
         <Nav.Link as={NavLink} to="/admin/productos/nuevo" className="text-white">
-           Agregar producto
+          Agregar producto
+        </Nav.Link>
+        <Nav.Link as={NavLink} to="/admin/soporte" className="text-white">
+          Mensajes de soporte
         </Nav.Link>
         <hr className="border-secondary" />
         <Nav.Link 
