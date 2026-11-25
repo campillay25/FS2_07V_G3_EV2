@@ -16,6 +16,9 @@ function AdminSidebar() {
         <Nav.Link as={NavLink} to="/admin/productos/nuevo" className="text-white">
           Agregar producto
         </Nav.Link>
+        <Nav.Link as={NavLink} to="/admin/compras" className="text-white">
+          Historial de compras
+        </Nav.Link>
         <Nav.Link as={NavLink} to="/admin/soporte" className="text-white">
           Mensajes de soporte
         </Nav.Link>

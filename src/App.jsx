@@ -10,6 +10,7 @@ import ContactView from './views/ContactView'
 import AdminLayout from './views/admin/AdminLayout'
 import AdminProductosView from './views/admin/AdminProductosView'
 import AdminAgregarProductoView from './views/admin/AdminAgregarProductoView'
+import AdminComprasView from './views/admin/AdminComprasView'
 import AdminSoporteView from './views/admin/AdminSoporteView'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="productos" element={<AdminProductosView />} />
             <Route path="productos/nuevo" element={<AdminAgregarProductoView />} />
             <Route path="productos/editar/:id" element={<AdminAgregarProductoView />} />
+            <Route path="compras" element={<AdminComprasView />} />
             <Route path="soporte" element={<AdminSoporteView />} />
           </Route>
         </Routes>
