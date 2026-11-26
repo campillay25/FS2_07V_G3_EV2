@@ -8,7 +8,7 @@ export const httpClient = axios.create({
 
 httpClient.interceptors.request.use((config) => {
   const session = getAuthSession();
-  if (session && config.url !== '/auth/login') {
+  if (session && config.url !== '/auth/login' && config.url !== '/auth/register') {
     config.headers.Authorization = 'Bearer ' + session.accessToken;
     config.sessionToken = session.accessToken;
   }
