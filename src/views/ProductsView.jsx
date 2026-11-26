@@ -45,7 +45,7 @@ function ProductsView() {
               {productos
                 .filter((p) => p.categoria === categoria)
                 .map((producto) => (
-                  <Col xs={12} lg={4} key={producto.id}>
+                  <Col xs={12} md={6} lg={4} key={producto.id}>
                     <ProductCard producto={producto} />
                   </Col>
                 ))}
